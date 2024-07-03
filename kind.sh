@@ -151,8 +151,6 @@ install_kind() {
         go install sigs.k8s.io/kind@v0.23.0
         cp $(go env GOPATH)/bin/kind /usr/local/bin/
     fi
-    chmod +x kind
-    sudo mv kind /usr/local/bin/kind
     kind version
 }
 
