@@ -148,9 +148,9 @@ install_kind() {
         # for M1 / ARM Macs
         [ $(uname -m) = arm64 ] && curl -sSLo kind "https://kind.sigs.k8s.io/dl/$version/kind-darwin-arm64"
     else
-        snap install go --classic
-        go install sigs.k8s.io/kind@v0.23.0
-        cp $(go env GOPATH)/bin/kind /usr/local/bin/
+        sudo snap install go --classic
+        sudo go install sigs.k8s.io/kind@v0.23.0
+        sudo cp $(go env GOPATH)/bin/kind /usr/local/bin/
     fi
     kind version
 }
