@@ -163,7 +163,7 @@ install_kubectl() {
         # for M1 / ARM Macs
         [ $(uname -m) = arm64 ] && curl -sSLo kubectl "https://dl.k8s.io/release/$kubectl_version/bin/darwin/arm64/kubectl"
     else
-        curl -sSLO "https://storage.googleapis.com/kubernetes-release/release/$kubectl_version/bin/linux/amd64/kubectl"
+        curl -sSLO "https://storage.googleapis.com/kubernetes-release/release/$kubectl_version/bin/linux/ppc64le/kubectl"
     fi
     chmod +x kubectl
     sudo mv kubectl /usr/local/bin/kubectl
@@ -177,9 +177,25 @@ install_docker() {
         mkdir -p ~/.docker/cli-plugins
         ln -sfn /usr/local/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
         colima start
+    else
+        sudo apt-get -qq update -y
+        sudo apt-get install ca-certificates curl -y
+        sudo install -m 0755 -d /etc/apt/keyrings 
+        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+        # Add the repository to Apt sources:
+        echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get update -y
+
+        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+        sudo apt-get update -y
+        sudo chmod 666 /var/run/docker.sock
     fi
-    sudo chmod 666 /var/run/docker.sock
-    docker --version
+    
 }
 
 create_kind_cluster() {
