@@ -178,6 +178,8 @@ install_docker() {
         ln -sfn /usr/local/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
         colima start
     fi
+    sudo chmod 666 /var/run/docker.sock
+    docker --version
 }
 
 create_kind_cluster() {
