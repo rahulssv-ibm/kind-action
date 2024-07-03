@@ -33,6 +33,7 @@ main() {
     if [[ -n "$registry_id" ]]; then
       echo "Deleting kind-registry..."
       docker rm --force kind-registry
+      docker network rm  kind
     fi
 }
 
