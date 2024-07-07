@@ -215,7 +215,7 @@ create_kind_cluster() {
         args+=("--loglevel=$log_level")
     fi
 
-    sudo kind "${args[@]}"
+    kind "${args[@]}"
 }
 
 main "$@"
