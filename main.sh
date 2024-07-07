@@ -96,7 +96,7 @@ main() {
     fi
     if [[ ${#args_kind[@]} -gt 0 ]]; then
         echo "$SCRIPT_DIR/kind.sh ${args_kind[@]}"
-        "$SCRIPT_DIR/kind.sh" "${args_kind[@]}"
+        "$SCRIPT_DIR/kind.sh" "${args_kind[@]}" "--validate=false"
     else
         "$SCRIPT_DIR/kind.sh"
     fi
