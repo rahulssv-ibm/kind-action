@@ -149,7 +149,7 @@ install_kind() {
         [ $(uname -m) = arm64 ] && curl -sSLo kind "https://kind.sigs.k8s.io/dl/$version/kind-darwin-arm64"
     else
         sudo apt install golang -y
-        sudo go install sigs.k8s.io/kind@$version
+        sudo go install sigs.k8s.io/kind@$version #v0.22.0
         sudo cp $(sudo go env GOPATH)/bin/kind /usr/local/bin/
     fi
     kind version
@@ -163,9 +163,9 @@ install_kubectl() {
         # for M1 / ARM Macs
         [ $(uname -m) = arm64 ] && curl -sSLo kubectl "https://dl.k8s.io/release/$kubectl_version/bin/darwin/arm64/kubectl"
     else
-        curl -sSLo kubectl "https://dl.k8s.io/$kubectl_version/bin/linux/ppc64le/kubectl"
+        sudo curl -sSLo kubectl "https://dl.k8s.io/$kubectl_version/bin/linux/ppc64le/kubectl" #v1.29.2
     fi
-    chmod +x kubectl
+    sudo chmod +x kubectl
     sudo mv kubectl /usr/local/bin/kubectl
     kubectl version --client --output=yaml
 }
@@ -215,7 +215,7 @@ create_kind_cluster() {
         args+=("--loglevel=$log_level")
     fi
 
-    kind "${args[@]}"
+    sudo kind "${args[@]}"
 }
 
 main "$@"
