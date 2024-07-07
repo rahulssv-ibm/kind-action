@@ -199,7 +199,6 @@ install_docker() {
 }
 
 create_kind_cluster() {
-    docker info
     echo 'Creating kind cluster...'
     local args=(create cluster "--name=$cluster_name" "--wait=$wait")
 
