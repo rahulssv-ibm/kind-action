@@ -95,6 +95,7 @@ main() {
         fi
     fi
     if [[ ${#args_kind[@]} -gt 0 ]]; then
+        echo "$SCRIPT_DIR/kind.sh ${args_kind[@]}"
         "$SCRIPT_DIR/kind.sh" "${args_kind[@]}"
     else
         "$SCRIPT_DIR/kind.sh"
