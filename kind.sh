@@ -148,9 +148,9 @@ install_kind() {
         # for M1 / ARM Macs
         [ $(uname -m) = arm64 ] && curl -sSLo kind "https://kind.sigs.k8s.io/dl/$version/kind-darwin-arm64"
     else
-        sudo apt install golang -y
-        sudo go install sigs.k8s.io/kind@$version #v0.22.0
-        sudo cp $(sudo go env GOPATH)/bin/kind /usr/local/bin/
+        sudo curl -sSLo kind "https://ftp2.osuosl.org/pub/ppc64el/kind/kind"
+        sudo chmod +x kind
+        sudo mv kind /usr/local/bin/kind
     fi
     kind version
 }
