@@ -27,7 +27,7 @@ main() {
         args+=(--name "${DEFAULT_CLUSTER_NAME}")
     fi
 
-    sudo kind delete cluster "${args[@]}"
+    kind delete cluster "${args[@]}"
 
     registry_id=$(docker ps --filter "name=kind-registry" --format "{{.ID}}")
     if [[ -n "$registry_id" ]]; then
